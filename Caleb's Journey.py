@@ -125,8 +125,17 @@ class Powers(object):
          \n''').format(Powers.weapons['sickle'], Powers.weapons['poisoned_leaves'], Powers.weapons['hard_stones']))
 
         print(dedent('Friend\'s Energy Level:\n'))
-        self.progress_bar(Powers.heko_freddy_energy['heko'], 'Heko', 250)
-        self.progress_bar(Powers.heko_freddy_energy['freddy'], 'Freddy', 350)
+        if Powers.heko_freddy_energy['heko'] == 'dead':
+            print(dedent(f"Heko: {Powers.heko_freddy_energy['heko']}"))
+        
+        else:
+            self.progress_bar(Powers.heko_freddy_energy['heko'], 'Heko', 250)
+        
+        if Powers.heko_freddy_energy['freddy'] == 'dead':
+            print(dedent(f"Freddy: {Powers.heko_freddy_energy['freddy']}"))
+        
+        else:
+            self.progress_bar(Powers.heko_freddy_energy['freddy'], 'Freddy', 350)
 
     
     def sell(self):
