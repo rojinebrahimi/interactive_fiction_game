@@ -59,8 +59,8 @@ class DeathScenario(Scene):
 # Powers to defeat or increase health
 class Powers(object):
     caleb_properties = {
-            'milk': 2000,
-            'butter': 1000,
+            'milk': 2500,
+            'butter': 2000,
             'wheat': 3000,
         }
 
@@ -112,22 +112,22 @@ class Powers(object):
             3. Wheat (you are a farmer)
             4. Back\n
         '''))
-        to_sell = int(input('>>> '))
+        to_sell = input('>>> ')
         
-        if to_sell == 1 and Powers.caleb_properties['milk'] > 260:
+        if to_sell == "1" and Powers.caleb_properties['milk'] >= 250:
             Powers.caleb_properties['milk'] -= 250
             Powers.caleb_money['current_money'] += 250
                     
-        elif to_sell == 2 and Powers.caleb_properties['butter'] > 310:
+        elif to_sell == "2" and Powers.caleb_properties['butter'] >= 300:
             Powers.caleb_properties['butter'] -= 300
             Powers.caleb_money['current_money'] += 300
 
         
-        elif to_sell == 3 and Powers.caleb_properties['wheat'] > 210:
+        elif to_sell == "3" and Powers.caleb_properties['wheat'] >= 200:
             Powers.caleb_properties['wheat'] -= 200
             Powers.caleb_money['current_money'] += 200
 
-        elif to_sell == 4:
+        elif to_sell == "4":
             return
 
         else:
@@ -146,22 +146,22 @@ class Powers(object):
             3. Hard stones (to throw!)
             4. Back\n
         '''))
-        to_buy = int(input('>>> '))
+        to_buy = input('>>> ')
 
-        if to_buy == 1 and Powers.caleb_money['current_money'] >= 800:
+        if to_buy == "1" and Powers.caleb_money['current_money'] >= 800:
             Powers.caleb_money['current_money'] -= 800
             Powers.weapons['sickle'] += 100
         
-        elif to_buy == 2 and Powers.caleb_money['current_money'] >= 1000:
+        elif to_buy == "2" and Powers.caleb_money['current_money'] >= 1000:
             Powers.caleb_money['current_money'] -= 1000
-            Powers.weapons['sickle'] += 200
+            Powers.weapons['poisoned_leaves'] += 200
 
 
-        elif to_buy == 2 and Powers.caleb_money['current_money'] >= 1200:
+        elif to_buy == "3" and Powers.caleb_money['current_money'] >= 1200:
             Powers.caleb_money['current_money'] -= 1200
-            Powers.weapons['sickle'] += 300
+            Powers.weapons['hard_stones'] += 300
         
-        elif to_buy == 4:
+        elif to_buy == "4":
             return
 
         else:
@@ -185,40 +185,40 @@ class Powers(object):
 
         if weapon_to_use == 1 and Powers.weapons['sickle'] >= 100:
             Powers.weapons['sickle'] -= 100
-            if Powers.healths['gethara'] >= 50:
-                Powers.healths['gethara'] -= 50
+            if Powers.healths['gethara'] >= 70:
+                Powers.healths['gethara'] -= 70
             else:
                 Powers.healths['gethara'] = 0
 
         elif weapon_to_use == 2 and Powers.weapons['poisoned_leaves'] >= 200:
             Powers.weapons['poisoned_leaves'] -= 200
             
-            if Powers.healths['gethara'] >= 70:
-                Powers.healths['gethara'] -= 70
+            if Powers.healths['gethara'] >= 100:
+                Powers.healths['gethara'] -= 100
             else:
                 Powers.healths['gethara'] = 0
 
         elif weapon_to_use == 3 and Powers.weapons['hard_stones'] >= 300:
             Powers.weapons['poisoned_leaves'] -= 300
             
-            if Powers.healths['gethara'] >= 120: 
-                Powers.healths['gethara'] -= 120
+            if Powers.healths['gethara'] >= 150: 
+                Powers.healths['gethara'] -= 150
             else:
                 Powers.healths['gethara'] = 0
 
         elif weapon_to_use == 4 and Powers.heko_freddy_energy['freddy'] >= 90:
-            Powers.heko_freddy_energy['freddy'] -= 90
+            Powers.heko_freddy_energy['freddy'] -= 100
             
-            if Powers.healths['gethara'] >= 60: 
-                Powers.healths['gethara'] -= 60
+            if Powers.healths['gethara'] >= 90: 
+                Powers.healths['gethara'] -= 90
             else:
                 Powers.healths['gethara'] = 0
 
         elif weapon_to_use == 5 and Powers.heko_freddy_energy['heko'] >= 100:
-            Powers.heko_freddy_energy['heko'] -= 100
+            Powers.heko_freddy_energy['heko'] -= 90
             
-            if Powers.healths['gethara'] >= 90:
-                Powers.healths['gethara'] -= 90
+            if Powers.healths['gethara'] >= 60:
+                Powers.healths['gethara'] -= 60
             else:
                 Powers.healths['gethara'] = 0
 
