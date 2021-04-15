@@ -202,10 +202,13 @@ class Powers(object):
             self.buy()
 
 
-    def attack(self):
+    def attack(self, gethara_weapon):
 
-        # enemy = Powers()
-        # enemy.enemy_attack(enemy.enemy_random_attack())
+        if Powers.healths['gethara'] == 0:
+                return 'win'
+
+        elif Powers.healths['caleb'] == 0:
+             return 'death'
 
         print(dedent(''' 
             Which weapon do you want to use?
@@ -289,18 +292,20 @@ class Powers(object):
                 Powers.healths['gethara'] = 0
        
         elif weapon_to_use == "6":
+            if gethara_weapon == 'magic_punch':
+                Powers.healths['caleb'] += 90
+            
+            elif gethara_weapon == 'air_kick':
+                Powers.healths['caleb'] += 100
+            
+            elif gethara_weapon == 'poisoned_blow':
+                Powers.healths['caleb'] += 120
+            
             return
 
         else:
             print('Hmm...CHOOSE the right weapon or he\'s gonna kill you!')
-            self.attack()
-        
-        if Powers.healths['gethara'] == 0:
-            return 'win'
-
-        elif Powers.healths['caleb'] == 0:
-             return 'death'
-
+            self.attack()       
     
 
 # Forest scene
@@ -342,18 +347,19 @@ class Forest(Scene):
                 
                 elif choice == 3:
                     enemy = Powers()
-                    enemy.enemy_attack(enemy.enemy_random_attack())
-                    result = char_power.attack()
+                    gethara_weapon = enemy.enemy_random_attack()
+                    enemy.enemy_attack(gethara_weapon)
+                    result = char_power.attack(gethara_weapon)
 
                 else:
                     print("Wrong choice...Open your eyes!")
                     exit_flag = False
 
                 if result == 'win':
-                    WinScenario().enter_scene()
+                    WinScenario().enter_scene(self)
 
                 elif result == 'death':
-                    DeathScenario.enter_scene()
+                    DeathScenario.enter_scene(self)
 
         elif caleb_answer == "running":
             ...
