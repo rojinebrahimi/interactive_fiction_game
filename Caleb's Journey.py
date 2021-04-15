@@ -45,7 +45,8 @@ class WinScenario(Scene):
     
     def enter_scene(self):
         print("That was something! Congratulations!\n")
-        Village.enter_scene()
+        next_map = GameMap(self)
+        next_map.next_scene('village').enter_scene()
         exit(0)
     
 
@@ -61,7 +62,7 @@ class DeathScenario(Scene):
 class Powers(object):
     caleb_properties = {
             'milk': 2500,
-            'butter': 2000,
+            'butter': 1800,
             'wheat': 3000,
         }
 
@@ -166,7 +167,7 @@ class Powers(object):
             return
 
         else:
-            print(dedent("No such thing to buy...\n"))
+            print(dedent("Not enough money to buy...\n"))
             self.buy()
 
         self.show_status()
@@ -186,8 +187,10 @@ class Powers(object):
 
         if weapon_to_use == "1" and Powers.weapons['sickle'] >= 100:
             Powers.weapons['sickle'] -= 100
+            
             if Powers.healths['gethara'] >= 70:
                 Powers.healths['gethara'] -= 70
+
             else:
                 Powers.healths['gethara'] = 0
 
@@ -196,30 +199,52 @@ class Powers(object):
             
             if Powers.healths['gethara'] >= 100:
                 Powers.healths['gethara'] -= 100
+
             else:
                 Powers.healths['gethara'] = 0
 
         elif weapon_to_use == "3" and Powers.weapons['hard_stones'] >= 300:
-            Powers.weapons['poisoned_leaves'] -= 300
+            Powers.weapons['hard_stones'] -= 300
             
             if Powers.healths['gethara'] >= 150: 
                 Powers.healths['gethara'] -= 150
+
             else:
                 Powers.healths['gethara'] = 0
 
-        elif weapon_to_use == "4" and Powers.heko_freddy_energy['freddy'] >= 90:
-            Powers.heko_freddy_energy['freddy'] -= 100
+        elif weapon_to_use == "4":
+            if Powers.heko_freddy_energy['freddy'] == 'dead':
+                print('He already sacrificed himself!\n')
+                return
             
+            elif Powers.heko_freddy_energy['freddy'] >= 90:
+                Powers.heko_freddy_energy['freddy'] -= 100
+            
+            else:
+                print('Freddy could not resist. He died.\n')
+                Powers.heko_freddy_energy['freddy'] = 'dead'
+
             if Powers.healths['gethara'] >= 90: 
                 Powers.healths['gethara'] -= 90
+
             else:
                 Powers.healths['gethara'] = 0
 
-        elif weapon_to_use == "5" and Powers.heko_freddy_energy['heko'] >= 100:
-            Powers.heko_freddy_energy['heko'] -= 90
-            
+        elif weapon_to_use == "5":
+            if Powers.heko_freddy_energy['heko'] == 'dead':
+                print('He already sacrificed himself!\n')
+                return
+
+            elif Powers.heko_freddy_energy['heko'] >= 100:
+                Powers.heko_freddy_energy['heko'] -= 90
+
+            else:
+                print('Heko could not resist anymore. He\'s dead now.')
+                Powers.heko_freddy_energy['heko'] = 'dead'
+
             if Powers.healths['gethara'] >= 60:
                 Powers.healths['gethara'] -= 60
+
             else:
                 Powers.healths['gethara'] = 0
 
