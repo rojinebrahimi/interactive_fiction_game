@@ -2,6 +2,7 @@ from textwrap import dedent
 from sys import exit
 import random
 
+
 # Game title
 print('\n' + '-' * 15, 'Caleb And The Dark Forest', '-' * 15 + '\n')
 # Game intro
@@ -17,6 +18,7 @@ print(dedent('''
     He started roaring and here the story began...\n
 '''))
 
+
 # Main flow of the game
 class Engine(object):
 
@@ -30,7 +32,6 @@ class Engine(object):
         while scene != end_game:
             scene = self.scene_map.next_scene('forest').enter_scene()
             
-
 
 
 # Changing scenes
@@ -205,10 +206,10 @@ class Powers(object):
     def attack(self, gethara_weapon):
 
         if Powers.healths['gethara'] == 0:
-                return 'win'
+            return 'win'
 
         elif Powers.healths['caleb'] == 0:
-             return 'death'
+            return 'death'
 
         print(dedent(''' 
             Which weapon do you want to use?
@@ -244,7 +245,6 @@ class Powers(object):
             else:
                 Powers.healths['gethara'] = 0
             
-
 
         elif weapon_to_use == "3" and Powers.weapons['hard_stones'] >= 300:
             Powers.weapons['hard_stones'] -= 300
@@ -373,7 +373,6 @@ class Forest(Scene):
             print("Gara weyta urada opina?! (in simple: what the hell are you talking about?)\n")
             self.enter_scene()    
         
-
 
 # Village scene
 class Village(Scene):
