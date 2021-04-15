@@ -338,17 +338,17 @@ class Village(Scene):
             has even chosen a name for himself, Gethara.  
         \n'''))
 
-# What each character is able to do
-class Character(Powers):
+# # What each character is able to do
+# class Character(Powers):
 
-    def sell(self):
-        return super().sell()
+#     def sell(self):
+#         return super().sell()
 
-    def buy(self):
-        return super().buy()    
+#     def buy(self):
+#         return super().buy()    
 
-    def attack(self):
-        return super().attack()
+#     def attack(self):
+#         return super().attack()
 
 
 # Define scenes
