@@ -31,6 +31,7 @@ class Engine(object):
             next_scene_name = scene.enter_scene()
             scene = self.scene_map.next_scene(next_scene_name)
 
+
         scene.enter_scene()
 
 
@@ -77,7 +78,7 @@ class Powers(object):
         print('''
             1. Milk (made by Freddy)
             2. Butter (Freddy dancing!)
-            3. Wheat (you are farmer)\n
+            3. Wheat (you are a farmer)\n
         ''')
         to_sell = int(input('>>> '))
         
@@ -176,13 +177,13 @@ class Forest(Scene):
                 choice = int(input('>>> '))
                 
                 if choice == 1:
-                    Powers.sell()
+                    self.Powers.sell()
                 
                 elif choice == 2:
-                    Powers.buy()
+                    self.Powers.buy()
                 
                 elif choice == 3:
-                    Powers.attack()
+                    self.Powers.attack()
                 
                 else:
                     print("Wrong choice...Open your eyes!")
