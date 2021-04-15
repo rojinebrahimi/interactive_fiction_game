@@ -69,7 +69,7 @@ class Powers(object):
     weapons = {'sickle': 0, 'poisoned_leaves': 0, 'hard_stones': 0}
     
     def sell(self):
-        print('So you want to get some money, cool!\n')
+        print(dedent('So you want to get some money, cool!\n'))
 
         print(dedent('''
             1. Milk (made by Freddy)
@@ -92,8 +92,9 @@ class Powers(object):
             Powers.caleb_money['current_money'] += 200
 
         else:
-            "No such properties were found. Try again."
-            sell()
+            print(dedent('No such properties were found. Try again.\n'))
+            self.sell()
+
         print(dedent(
             '''Milk: {}
                Butter: {}
