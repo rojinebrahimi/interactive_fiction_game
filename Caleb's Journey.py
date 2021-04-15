@@ -57,9 +57,9 @@ class DeathScenario(Scene):
         exit(1)
     
 
-
 # Powers to defeat or increase health
 class Powers(object):
+    
     caleb_properties = {
             'milk': 2500,
             'butter': 1800,
@@ -71,38 +71,40 @@ class Powers(object):
     weapons = {'sickle': 0, 'poisoned_leaves': 0, 'hard_stones': 0}
     heko_freddy_energy = {'heko': 250, 'freddy': 350}
 
+    
+    def progress_bar(self, val, label, max_size):
+        bar_size = 20
+        j = val / max_size
+        bar = '█' * int(bar_size * j)
+        bar = bar + '-' * int(bar_size * (1 - j))
+        print(f"{label.ljust(10)} | [{bar:{bar_size}s}] {int(100 * j)}%")
+
 
     def show_status(self):
-        print(dedent('''
-            Properties:
-              Milk: {}
-              Butter: {}
-              Wheat: {} 
-        \n''').format(Powers.caleb_properties['milk'], Powers.caleb_properties['butter'], Powers.caleb_properties['wheat']))
+        print(dedent('Properties:\n'))     
+        self.progress_bar(Powers.caleb_properties['milk'], 'Milk', 2500)
+        self.progress_bar(Powers.caleb_properties['butter'], 'Butter', 1800)
+        self.progress_bar(Powers.caleb_properties['wheat'], 'Wheat', 3000)
         
-        print(dedent('''
-            Health:
-              Caleb: {}
-              Gethara: {}
-         \n''').format(Powers.healths['caleb'], Powers.healths['gethara']))
+        print(dedent('\n\nHealth:\n'))
+        self.progress_bar(Powers.healths['caleb'], 'Caleb', 1000)
+        self.progress_bar(Powers.healths['gethara'], 'Gethara', 1000)
         
-        print(dedent('''
-            Money:
-              Caleb: {} 
-         \n''').format(Powers.caleb_money['current_money']))
+        print(dedent('''\n
+            Money:\n
+            Caleb: {} 
+         \n''').format(Powers.caleb_money['current_money']))   
 
         print(dedent('''
-            Weapons:
-              Sickle: {}
-              Poisoned Leaves: {}
-              Hard Stones: {}
+            Weapons:\n
+            Sickle: {}
+            Poisoned Leaves: {}
+            Hard Stones: {}
          \n''').format(Powers.weapons['sickle'], Powers.weapons['poisoned_leaves'], Powers.weapons['hard_stones']))
 
-        print(dedent('''
-            Energy Level
-              Freddy: {}
-              Heko: {}
-        \n''').format(Powers.heko_freddy_energy['freddy'], Powers.heko_freddy_energy['heko']))
+        print(dedent('Friend\'s Energy Level:\n'))
+        self.progress_bar(Powers.heko_freddy_energy['heko'], 'Heko', 250)
+        self.progress_bar(Powers.heko_freddy_energy['freddy'], 'Freddy', 350)
 
     
     def sell(self):
@@ -280,7 +282,7 @@ class Forest(Scene):
                 char_power = Powers()
                 result = ""
                 char_power.show_status()
-                print('-' * 15, 'Choose what to do', '-' * 15 + '\n')    
+                print('\n' + '-' * 15, 'Choose what to do', '-' * 15 + '\n')    
                 
                 print(dedent(''' 
                     1. Sell
