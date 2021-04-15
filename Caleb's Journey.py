@@ -74,7 +74,8 @@ class Powers(object):
         print(dedent('''
             1. Milk (made by Freddy)
             2. Butter (Freddy dancing!)
-            3. Wheat (you are a farmer)\n
+            3. Wheat (you are a farmer)
+            4. Back\n
         '''))
         to_sell = int(input('>>> '))
         
@@ -91,6 +92,9 @@ class Powers(object):
             Powers.caleb_properties['wheat'] -= 200
             Powers.caleb_money['current_money'] += 200
 
+        elif to_sell == 4:
+            return
+            
         else:
             print(dedent('No such properties were found. Try again.\n'))
             self.sell()
