@@ -1,6 +1,6 @@
 from textwrap import dedent
 from sys import exit
-
+import random
 
 # Game title
 print('\n' + '-' * 15, 'Caleb And The Dark Forest', '-' * 15 + '\n')
@@ -70,8 +70,30 @@ class Powers(object):
     caleb_money = {'current_money': 500}
     weapons = {'sickle': 0, 'poisoned_leaves': 0, 'hard_stones': 0}
     heko_freddy_energy = {'heko': 250, 'freddy': 350}
-
+    enemy_weapons = ['magic_punch', 'air_kick', 'poisoned_blow']
     
+    def enemy_attack(self, weapon):
+        if Powers.healths['caleb'] < 110:
+            Powers.healths['caleb'] = 0
+            return 'win'
+
+        if weapon == 'magic_punch':
+            Powers.healths['caleb'] -= 90
+
+        elif weapon == 'air_kick':
+            Powers.healths['caleb'] -= 100
+        
+        elif weapon == 'poisoned_blow':
+            Powers.healths['caleb'] -= 120
+
+        print(dedent(f"Gethara attacked using {weapon}!\n"))
+
+
+    def enemy_random_attack(self):
+        weapon = random.choice(Powers.enemy_weapons)
+        return weapon
+    
+
     def progress_bar(self, val, label, max_size):
         bar_size = 20
         j = val / max_size
@@ -172,6 +194,10 @@ class Powers(object):
 
 
     def attack(self):
+
+        # enemy = Powers()
+        # enemy.enemy_attack(enemy.enemy_random_attack())
+
         print(dedent(''' 
             Which weapon do you want to use?
             1. Sickle
@@ -183,6 +209,9 @@ class Powers(object):
         '''))
 
         weapon_to_use = input('>>> ')
+        
+        if Powers.healths['gethara'] == 0:
+            return 'win'
 
         if weapon_to_use == "1" and Powers.weapons['sickle'] >= 100:
             Powers.weapons['sickle'] -= 100
@@ -192,6 +221,7 @@ class Powers(object):
 
             else:
                 Powers.healths['gethara'] = 0
+            
 
         elif weapon_to_use == "2" and Powers.weapons['poisoned_leaves'] >= 200:
             Powers.weapons['poisoned_leaves'] -= 200
@@ -201,6 +231,8 @@ class Powers(object):
 
             else:
                 Powers.healths['gethara'] = 0
+            
+
 
         elif weapon_to_use == "3" and Powers.weapons['hard_stones'] >= 300:
             Powers.weapons['hard_stones'] -= 300
@@ -246,7 +278,7 @@ class Powers(object):
 
             else:
                 Powers.healths['gethara'] = 0
-
+       
         elif weapon_to_use == "6":
             return
 
@@ -256,11 +288,12 @@ class Powers(object):
         
         if Powers.healths['gethara'] == 0:
             return 'win'
-        elif Powers.healths['caleb'] == 0:
-            return 'death'
 
+        elif Powers.healths['caleb'] == 0:
+             return 'death'
 
     
+
 # Forest scene
 class Forest(Scene):
     
@@ -299,6 +332,8 @@ class Forest(Scene):
                     char_power.buy()
                 
                 elif choice == 3:
+                    enemy = Powers()
+                    enemy.enemy_attack(enemy.enemy_random_attack())
                     result = char_power.attack()
 
                 else:
