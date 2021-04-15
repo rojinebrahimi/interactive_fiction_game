@@ -67,6 +67,32 @@ class Powers(object):
     healths = {'caleb': 1000, 'gethara': 1000}
     caleb_money = {'current_money': 500}
     weapons = {'sickle': 0, 'poisoned_leaves': 0, 'hard_stones': 0}
+
+
+
+    def show_status(self):
+        print(dedent(
+            '''Milk: {}
+               Butter: {}
+               Wheat: {} 
+            \n''').format(Powers.caleb_properties['milk'], Powers.caleb_properties['butter'], Powers.caleb_properties['wheat']))
+        
+        print(dedent('''
+            Caleb's Health: {}
+            Gethara's Health: {}
+         \n''').format(Powers.healths['caleb'], Powers.healths['gethara']))
+        
+        print(dedent('''
+            Caleb's Money: {} 
+         \n''').format(Powers.caleb_money['current_money']))
+
+        print(dedent('''
+            Weapons:
+              Sickle: {}
+              Poisoned Leaves: {}
+              Hard Stones: {}
+         \n''').format(Powers.weapons['sickle'], Powers.weapons['poisoned_leaves'], Powers.weapons['hard_stones']))
+
     
     def sell(self):
         print(dedent('So you want to get some money, cool!\n'))
@@ -94,32 +120,12 @@ class Powers(object):
 
         elif to_sell == 4:
             return
-            
+
         else:
             print(dedent('No such properties were found. Try again.\n'))
             self.sell()
 
-        print(dedent(
-            '''Milk: {}
-               Butter: {}
-               Wheat: {} 
-            \n''').format(Powers.caleb_properties['milk'], Powers.caleb_properties['butter'], Powers.caleb_properties['wheat']))
-        
-        print(dedent('''
-            Caleb's Health: {}
-            Gethara's Health: {}
-        \n''').format(Powers.healths['caleb'], Powers.healths['gethara']))
-        
-        print(dedent('''
-            Caleb's Money: {} 
-        \n''').format(Powers.caleb_money['current_money']))
-
-        print(dedent('''
-            Weapons:
-              Sickle: {}
-              Poisoned Leaves: {}
-              Hard Stones: {}
-        \n''').format(Powers.weapons['sickle'], Powers.weapons['poisoned_leaves'], Powers.weapons['hard_stones']))
+        self.show_status()
 
 
     def buy(self):
@@ -129,25 +135,31 @@ class Powers(object):
             1. Sickle (sharpness!)
             2. Poisoned leaves (well, it's Hermon!)
             3. Hard stones (to throw!)
+            4. Back\n
         '''))
         to_buy = int(input('>>> '))
 
-        if to_buy == 1 and caleb_money['current_money'] > 0:
-            caleb_money['current_money'] -= 800
-            weapons['sickle'] += 100
+        if to_buy == 1 and Powers.caleb_money['current_money'] > 810:
+            Powers.caleb_money['current_money'] -= 800
+            Powers.weapons['sickle'] += 100
         
-        elif to_buy == 2 and caleb_money['current_money'] > 0:
-            caleb_money['current_money'] -= 1000
-            weapons['sickle'] += 200
+        elif to_buy == 2 and Powers.caleb_money['current_money'] > 1010:
+            Powers.caleb_money['current_money'] -= 1000
+            Powers.weapons['sickle'] += 200
 
 
-        elif to_buy == 2 and caleb_money['current_money'] > 0:
-            caleb_money['current_money'] -= 1200
-            weapons['sickle'] += 300
+        elif to_buy == 2 and Powers.caleb_money['current_money'] > 1210:
+            Powers.caleb_money['current_money'] -= 1200
+            Powers.weapons['sickle'] += 300
         
+        elif to_buy == 4:
+            return
+
         else:
-            print("No such thing to buy...")
-            buy()
+            print(dedent("No such thing to buy...\n"))
+            self.buy()
+
+        self.show_status()
 
     def attack(self):
         print(dedent(''' 
