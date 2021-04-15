@@ -45,6 +45,7 @@ class WinScenario(Scene):
     
     def enter_scene(self):
         print("That was something! Congratulations!\n")
+        Village.enter_scene()
         exit(0)
     
 
@@ -232,6 +233,8 @@ class Powers(object):
         self.show_status()
         if Powers.healths['gethara'] == 0:
             return 'win'
+        elif Powers.healths['caleb'] == 0:
+            return 'death'
 
 
     
@@ -282,6 +285,8 @@ class Forest(Scene):
                 if result == 'win':
                     WinScenario().enter_scene()
 
+                elif result == 'death':
+                    DeathScenario.enter_scene()
 
         elif caleb_answer == "running":
             ...
@@ -299,7 +304,14 @@ class Forest(Scene):
 class Village(Scene):
     
     def enter_scene(self):
-        ...
+        print(dedent('''
+            Well, caleb won. You halped him a lot!
+            All "Hermon's" creatures will listen to
+            him now. With their super powers, he
+            is able to rebuild his village, and he
+            does so. He is not a farmer anymore. He
+            has even chosen a name for himself, Gethara.  
+        \n'''))
 
 # What each character is able to do
 class Character(Powers):
