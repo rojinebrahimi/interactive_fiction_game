@@ -45,7 +45,7 @@ class WinScenario(Scene):
     
     def enter_scene(self):
         print("That was something! Congratulations!\n")
-        return True
+        exit(0)
     
 
 class DeathScenario(Scene):
@@ -71,19 +71,22 @@ class Powers(object):
 
 
     def show_status(self):
-        print(dedent(
-            '''Milk: {}
-               Butter: {}
-               Wheat: {} 
+        print(dedent('''
+            Properties:
+              Milk: {}
+              Butter: {}
+              Wheat: {} 
         \n''').format(Powers.caleb_properties['milk'], Powers.caleb_properties['butter'], Powers.caleb_properties['wheat']))
         
         print(dedent('''
-            Caleb's Health: {}
-            Gethara's Health: {}
+            Health:
+              Caleb: {}
+              Gethara: {}
          \n''').format(Powers.healths['caleb'], Powers.healths['gethara']))
         
         print(dedent('''
-            Caleb's Money: {} 
+            Money:
+              Caleb: {} 
          \n''').format(Powers.caleb_money['current_money']))
 
         print(dedent('''
@@ -94,8 +97,9 @@ class Powers(object):
          \n''').format(Powers.weapons['sickle'], Powers.weapons['poisoned_leaves'], Powers.weapons['hard_stones']))
 
         print(dedent('''
-            Freddy's Energy Level: {}
-            Heko's Energy Level: {}
+            Energy Level
+              Freddy: {}
+              Heko: {}
         \n''').format(Powers.heko_freddy_energy['freddy'], Powers.heko_freddy_energy['heko']))
 
     
@@ -144,16 +148,16 @@ class Powers(object):
         '''))
         to_buy = int(input('>>> '))
 
-        if to_buy == 1 and Powers.caleb_money['current_money'] > 810:
+        if to_buy == 1 and Powers.caleb_money['current_money'] >= 800:
             Powers.caleb_money['current_money'] -= 800
             Powers.weapons['sickle'] += 100
         
-        elif to_buy == 2 and Powers.caleb_money['current_money'] > 1010:
+        elif to_buy == 2 and Powers.caleb_money['current_money'] >= 1000:
             Powers.caleb_money['current_money'] -= 1000
             Powers.weapons['sickle'] += 200
 
 
-        elif to_buy == 2 and Powers.caleb_money['current_money'] > 1210:
+        elif to_buy == 2 and Powers.caleb_money['current_money'] >= 1200:
             Powers.caleb_money['current_money'] -= 1200
             Powers.weapons['sickle'] += 300
         
@@ -179,26 +183,44 @@ class Powers(object):
 
         weapon_to_use = int(input('>>> '))
 
-        if weapon_to_use == 1 and Powers.weapons['sickle'] > 100:
+        if weapon_to_use == 1 and Powers.weapons['sickle'] >= 100:
             Powers.weapons['sickle'] -= 100
-            Powers.healths['gethara'] -= 50
+            if Powers.healths['gethara'] >= 50:
+                Powers.healths['gethara'] -= 50
+            else:
+                Powers.healths['gethara'] = 0
 
-        elif weapon_to_use == 2 and Powers.weapons['poisoned_leaves'] > 100:
+        elif weapon_to_use == 2 and Powers.weapons['poisoned_leaves'] >= 200:
             Powers.weapons['poisoned_leaves'] -= 200
-            Powers.healths['gethara'] -= 70
+            
+            if Powers.healths['gethara'] >= 70:
+                Powers.healths['gethara'] -= 70
+            else:
+                Powers.healths['gethara'] = 0
 
-        elif weapon_to_use == 3 and Powers.weapons['hard_stones'] > 100:
+        elif weapon_to_use == 3 and Powers.weapons['hard_stones'] >= 300:
             Powers.weapons['poisoned_leaves'] -= 300
-            Powers.healths['gethara'] -= 120
+            
+            if Powers.healths['gethara'] >= 120: 
+                Powers.healths['gethara'] -= 120
+            else:
+                Powers.healths['gethara'] = 0
 
-        elif weapon_to_use == 4 and Powers.heko_freddy_energy['heko'] > 50:
-            Powers.heko_freddy_energy['heko'] -= 90
-            Powers.healths['gethara'] -= 60
+        elif weapon_to_use == 4 and Powers.heko_freddy_energy['freddy'] >= 90:
+            Powers.heko_freddy_energy['freddy'] -= 90
+            
+            if Powers.healths['gethara'] >= 60: 
+                Powers.healths['gethara'] -= 60
+            else:
+                Powers.healths['gethara'] = 0
 
-        elif weapon_to_use == 5 and Powers.heko_freddy_energy['freddy'] > 50:
-            Powers.heko_freddy_energy['freddy'] -= 100
-            Powers.healths['gethara'] -= 90
-
+        elif weapon_to_use == 5 and Powers.heko_freddy_energy['heko'] >= 100:
+            Powers.heko_freddy_energy['heko'] -= 100
+            
+            if Powers.healths['gethara'] >= 90:
+                Powers.healths['gethara'] -= 90
+            else:
+                Powers.healths['gethara'] = 0
 
         elif weapon_to_use == 6:
             return
@@ -208,6 +230,10 @@ class Powers(object):
             self.attack()
         
         self.show_status()
+        if Powers.healths['gethara'] == 0:
+            return 'win'
+
+
     
 # Forest scene
 class Forest(Scene):
@@ -223,16 +249,22 @@ class Forest(Scene):
                 allowed to wander here. So...I am going to
                 kill you all. Yaha...here the battle begins!\n
             '''))
-            print('-' * 15, 'Choose what to do', '-' * 15 + '\n')
+            print('-' * 15, 'Initial Resources', '-' * 15 + '\n')
             exit_flag = False
+            
             while exit_flag != True:
+                char_power = Powers()
+                result = ""
+                char_power.show_status()
+                print('-' * 15, 'Choose what to do', '-' * 15 + '\n')    
+                
                 print(dedent(''' 
                     1. Sell
                     2. Buy
                     3. Attack
                 '''))
                 choice = int(input('>>> '))
-                char_power = Powers()
+                
 
                 if choice == 1:
                     char_power.sell()
@@ -241,22 +273,25 @@ class Forest(Scene):
                     char_power.buy()
                 
                 elif choice == 3:
-                    char_power.attack()
-                
+                    result = char_power.attack()
+
                 else:
                     print("Wrong choice...Open your eyes!")
                     exit_flag = False
 
-
+                if result == 'win':
+                    WinScenario().enter_scene()
 
 
         elif caleb_answer == "running":
             ...
+        
         elif caleb_answer == "enjoyiong":
             ...
+        
         else:
-            print("Gara weyta urada opina?! (in simple: what the hell are you talking about?\n)")
-            enter_scene()    
+            print("Gara weyta urada opina?! (in simple: what the hell are you talking about?)\n")
+            self.enter_scene()    
         
 
 
