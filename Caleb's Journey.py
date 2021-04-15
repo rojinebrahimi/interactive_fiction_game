@@ -67,7 +67,7 @@ class Powers(object):
     healths = {'caleb': 1000, 'gethara': 1000}
     caleb_money = {'current_money': 500}
     weapons = {'sickle': 0, 'poisoned_leaves': 0, 'hard_stones': 0}
-
+    heko_freddy_energy = {'heko': 250, 'freddy': 350}
 
 
     def show_status(self):
@@ -75,7 +75,7 @@ class Powers(object):
             '''Milk: {}
                Butter: {}
                Wheat: {} 
-            \n''').format(Powers.caleb_properties['milk'], Powers.caleb_properties['butter'], Powers.caleb_properties['wheat']))
+        \n''').format(Powers.caleb_properties['milk'], Powers.caleb_properties['butter'], Powers.caleb_properties['wheat']))
         
         print(dedent('''
             Caleb's Health: {}
@@ -92,6 +92,11 @@ class Powers(object):
               Poisoned Leaves: {}
               Hard Stones: {}
          \n''').format(Powers.weapons['sickle'], Powers.weapons['poisoned_leaves'], Powers.weapons['hard_stones']))
+
+        print(dedent('''
+            Freddy's Energy Level: {}
+            Heko's Energy Level: {}
+        \n''').format(Powers.heko_freddy_energy['freddy'], Powers.heko_freddy_energy['heko']))
 
     
     def sell(self):
@@ -167,25 +172,42 @@ class Powers(object):
             1. Sickle
             2. Poisoned leaves
             3. Hard stones
+            4. Freddy's kick
+            5. Heko's bark
+            6. Back
         '''))
 
         weapon_to_use = int(input('>>> '))
 
-        if weapon_to_use == 1 and weapons['sickle'] > 100:
-            weapons['sickle'] -= 100
-            healths['gethara'] -= 50
+        if weapon_to_use == 1 and Powers.weapons['sickle'] > 100:
+            Powers.weapons['sickle'] -= 100
+            Powers.healths['gethara'] -= 50
 
-        elif weapon_to_use == 2 and weapons['poisoned_leaves'] > 100:
-            weapons['poisoned_leaves'] -= 200
-            healths['gethara'] -= 70
+        elif weapon_to_use == 2 and Powers.weapons['poisoned_leaves'] > 100:
+            Powers.weapons['poisoned_leaves'] -= 200
+            Powers.healths['gethara'] -= 70
 
-        elif weapon_to_use == 3 and weapons['hard_stone'] > 100:
-            weapons['poisoned_leaves'] -= 300
-            healths['gethara'] -= 120
+        elif weapon_to_use == 3 and Powers.weapons['hard_stones'] > 100:
+            Powers.weapons['poisoned_leaves'] -= 300
+            Powers.healths['gethara'] -= 120
+
+        elif weapon_to_use == 4 and Powers.heko_freddy_energy['heko'] > 50:
+            Powers.heko_freddy_energy['heko'] -= 90
+            Powers.healths['gethara'] -= 60
+
+        elif weapon_to_use == 5 and Powers.heko_freddy_energy['freddy'] > 50:
+            Powers.heko_freddy_energy['freddy'] -= 100
+            Powers.healths['gethara'] -= 90
+
+
+        elif weapon_to_use == 6:
+            return
 
         else:
-            print('Hmm...CHOOSE a damn weapon!')
-            attack()
+            print('Hmm...CHOOSE the right weapon or he\'s gonna kill you!')
+            self.attack()
+        
+        self.show_status()
     
 # Forest scene
 class Forest(Scene):
