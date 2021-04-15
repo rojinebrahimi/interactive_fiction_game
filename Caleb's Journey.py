@@ -28,11 +28,8 @@ class Engine(object):
         end_game = self.scene_map.next_scene('win')
 
         while scene != end_game:
-            next_scene_name = scene.enter_scene()
-            scene = self.scene_map.next_scene(next_scene_name)
-
-
-        scene.enter_scene()
+            scene = self.scene_map.next_scene('forest').enter_scene()
+            
 
 
 
@@ -61,52 +58,73 @@ class DeathScenario(Scene):
 
 # Powers to defeat or increase health
 class Powers(object):
-    
     caleb_properties = {
-        'milk': 2000,
-        'butter': 1000,
-        'wheat': 3000,
-    }
+            'milk': 2000,
+            'butter': 1000,
+            'wheat': 3000,
+        }
 
     healths = {'caleb': 1000, 'gethara': 1000}
     caleb_money = {'current_money': 500}
-    weapons = {'sickle': 0, 'poisoned_leaves': 0, 'hard_stone': 0}
-       
+    weapons = {'sickle': 0, 'poisoned_leaves': 0, 'hard_stones': 0}
+    
     def sell(self):
         print('So you want to get some money, cool!\n')
 
-        print('''
+        print(dedent('''
             1. Milk (made by Freddy)
             2. Butter (Freddy dancing!)
             3. Wheat (you are a farmer)\n
-        ''')
+        '''))
         to_sell = int(input('>>> '))
         
-        if to_sell == 1 and caleb_properties['milk'] > 260:
-            caleb_properties['milk'] -= 250
-            caleb_money['current_money'] += 250
+        if to_sell == 1 and Powers.caleb_properties['milk'] > 260:
+            Powers.caleb_properties['milk'] -= 250
+            Powers.caleb_money['current_money'] += 250
                     
-        elif to_sell == 2 and caleb_properties['butter'] > 310:
-            caleb_properties['butter'] -= 300
-            caleb_money['current_money'] += 300
+        elif to_sell == 2 and Powers.caleb_properties['butter'] > 310:
+            Powers.caleb_properties['butter'] -= 300
+            Powers.caleb_money['current_money'] += 300
 
         
-        elif to_sell == 3 and caleb_properties['wheat'] > 210:
-            caleb_properties['wheat'] -= 200
-            caleb_money['current_money'] += 200
+        elif to_sell == 3 and Powers.caleb_properties['wheat'] > 210:
+            Powers.caleb_properties['wheat'] -= 200
+            Powers.caleb_money['current_money'] += 200
 
         else:
             "No such properties were found. Try again."
             sell()
+        print(dedent(
+            '''Milk: {}
+               Butter: {}
+               Wheat: {} 
+            \n''').format(Powers.caleb_properties['milk'], Powers.caleb_properties['butter'], Powers.caleb_properties['wheat']))
+        
+        print(dedent('''
+            Caleb's Health: {}
+            Gethara's Health: {}
+        \n''').format(Powers.healths['caleb'], Powers.healths['gethara']))
+        
+        print(dedent('''
+            Caleb's Money: {} 
+        \n''').format(Powers.caleb_money['current_money']))
+
+        print(dedent('''
+            Weapons:
+              Sickle: {}
+              Poisoned Leaves: {}
+              Hard Stones: {}
+        \n''').format(Powers.weapons['sickle'], Powers.weapons['poisoned_leaves'], Powers.weapons['hard_stones']))
+
 
     def buy(self):
         print('So you want to level up your power against Gethara!\n')
 
-        print('''
+        print(dedent('''
             1. Sickle (sharpness!)
             2. Poisoned leaves (well, it's Hermon!)
             3. Hard stones (to throw!)
-        ''')
+        '''))
         to_buy = int(input('>>> '))
 
         if to_buy == 1 and caleb_money['current_money'] > 0:
@@ -127,12 +145,12 @@ class Powers(object):
             buy()
 
     def attack(self):
-        print(''' 
+        print(dedent(''' 
             Which weapon do you want to use?
             1. Sickle
             2. Poisoned leaves
             3. Hard stones
-        ''')
+        '''))
 
         weapon_to_use = int(input('>>> '))
 
@@ -161,29 +179,30 @@ class Forest(Scene):
             '''))
         caleb_answer = input('>>> ')
         if caleb_answer == "wandering":
-            print('''
+            print(dedent('''
                 Hmmmm...This is MY territory...None of you are
                 allowed to wander here. So...I am going to
                 kill you all. Yaha...here the battle begins!\n
-            ''')
+            '''))
             print('-' * 15, 'Choose what to do', '-' * 15 + '\n')
             exit_flag = False
             while exit_flag != True:
-                print(''' 
+                print(dedent(''' 
                     1. Sell
                     2. Buy
                     3. Attack
-                ''')
+                '''))
                 choice = int(input('>>> '))
-                
+                char_power = Powers()
+
                 if choice == 1:
-                    self.Powers.sell()
+                    char_power.sell()
                 
                 elif choice == 2:
-                    self.Powers.buy()
+                    char_power.buy()
                 
                 elif choice == 3:
-                    self.Powers.attack()
+                    char_power.attack()
                 
                 else:
                     print("Wrong choice...Open your eyes!")
