@@ -305,7 +305,7 @@ class Powers(object):
 
         else:
             print('Hmm...CHOOSE the right weapon or he\'s gonna kill you!')
-            self.attack()       
+            self.attack(gethara_weapon)       
     
 
 # Forest scene
@@ -356,10 +356,12 @@ class Forest(Scene):
                     exit_flag = False
 
                 if result == 'win':
-                    WinScenario().enter_scene(self)
+                    winner = WinScenario()
+                    winner.enter_scene()                    
 
                 elif result == 'death':
-                    DeathScenario.enter_scene(self)
+                    loser = DeathScenario()
+                    loser.enter_scene()
 
         elif caleb_answer == "running":
             ...
