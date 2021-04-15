@@ -136,8 +136,6 @@ class Powers(object):
             print(dedent('No such properties were found. Try again.\n'))
             self.sell()
 
-        self.show_status()
-
 
     def buy(self):
         print('So you want to level up your power against Gethara!\n')
@@ -170,7 +168,6 @@ class Powers(object):
             print(dedent("Not enough money to buy...\n"))
             self.buy()
 
-        self.show_status()
 
     def attack(self):
         print(dedent(''' 
@@ -255,7 +252,6 @@ class Powers(object):
             print('Hmm...CHOOSE the right weapon or he\'s gonna kill you!')
             self.attack()
         
-        self.show_status()
         if Powers.healths['gethara'] == 0:
             return 'win'
         elif Powers.healths['caleb'] == 0:
@@ -337,18 +333,6 @@ class Village(Scene):
             does so. He is not a farmer anymore. He
             has even chosen a name for himself, Gethara.  
         \n'''))
-
-# # What each character is able to do
-# class Character(Powers):
-
-#     def sell(self):
-#         return super().sell()
-
-#     def buy(self):
-#         return super().buy()    
-
-#     def attack(self):
-#         return super().attack()
 
 
 # Define scenes
