@@ -41,6 +41,7 @@ class Scene(object):
         print("Used for other scenes.")
         exit(1)
 
+
 # Win scenarios
 class WinScenario(Scene):
     
@@ -74,7 +75,7 @@ class Powers(object):
     enemy_weapons = ['magic_punch', 'air_kick', 'poisoned_blow']
     
     def enemy_attack(self, weapon):
-        if Powers.healths['caleb'] < 110:
+        if Powers.healths['caleb'] < 90:
             Powers.healths['caleb'] = 0
             return 'win'
 
