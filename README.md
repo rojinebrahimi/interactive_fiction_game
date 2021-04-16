@@ -1,4 +1,4 @@
-# "Caleb And The Dark Forest" Game
+# "Caleb's Journey - The Dark Forest" Game
 An interactive fictional game written in pure Python in which you should help Caleb overcome Gethara, the lord of the dark forest.
 
     Caleb is a farmer. He has a cow, Freddy, and a dog, Heko.
