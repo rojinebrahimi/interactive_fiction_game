@@ -364,15 +364,54 @@ class Forest(Scene):
                     loser.enter_scene()
 
         elif caleb_answer == "running":
-            ...
+            print(dedent('''
+                Ha...You better go on! Or I'll just feed
+                you to my Ranios (apparently his dogs)!
+            \n'''))
+            runner = Cliff()
+            runner.enter_scene()
         
-        elif caleb_answer == "enjoyiong":
-            ...
+        elif caleb_answer == "enjoying":
+            enjoyer = Tree()
+            enjoyer.enter_scene()
         
         else:
             print("Gara weyta urada opina?! (in simple: what the hell are you talking about?)\n")
             self.enter_scene()    
         
+
+# Tree scene to hang Caleb, Freddy and Heko
+class Tree(Scene):
+
+    def enter_scene(self):
+        print(dedent('''
+            Well, Caleb DID this wrong. Gethara does'nt
+            like it when creatures (he calls) around him
+            are happy; so he hangs all three on a tree
+            and makes his creatures watch them till no
+            one knows when.  
+        \n'''))
+
+        DeathScenario().enter_scene()
+
+
+# Cliff scene to fall off
+class Cliff(Scene):
+
+    def enter_scene(self):
+        print(dedent('''
+            Well, Calab "says" he's running. So does he.
+            He, Freddy and Heko start running. They run 
+            faster than they can register for a free course
+            on Coursera, Udemy or edX (in our time).
+            That leads to a distaster; He falls off a cliff
+            and his head gets smashed. Freddy and Heko land
+            on his body. They find themselves in a new home.
+            They leave Caleb and start their new lives.
+        \n'''))
+
+        DeathScenario().enter_scene()
+
 
 # Village scene
 class Village(Scene):
