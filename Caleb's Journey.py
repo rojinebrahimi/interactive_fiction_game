@@ -87,7 +87,7 @@ class Powers(object):
         elif weapon == 'poisoned_blow':
             Powers.healths['caleb'] -= 120
 
-        print(dedent(f"Gethara attacked using {weapon}!\n"))
+        print(dedent(f"\nGethara attacked using {weapon}!\n"))
 
 
     def enemy_random_attack(self):
