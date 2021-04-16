@@ -337,16 +337,16 @@ class Forest(Scene):
                     2. Buy
                     3. Attack
                 '''))
-                choice = int(input('>>> '))
+                choice = input('>>> ')
                 
 
-                if choice == 1:
+                if choice == "1":
                     char_power.sell()
                 
-                elif choice == 2:
+                elif choice == "2":
                     char_power.buy()
                 
-                elif choice == 3:
+                elif choice == "3":
                     enemy = Powers()
                     gethara_weapon = enemy.enemy_random_attack()
                     enemy.enemy_attack(gethara_weapon)
