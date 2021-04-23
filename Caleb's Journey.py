@@ -387,11 +387,11 @@ class Tree(Scene):
 
     def enter_scene(self):
         print(dedent('''
-            Well, Caleb DID this wrong. Gethara does'nt
+            Well, Caleb DID this wrong. Gethara doesn't
             like it when creatures (he calls) around him
             are happy; so he hangs all three on a tree
-            and makes his creatures watch them till no
-            one knows when.  
+            and makes his creatures watch them until no
+            one knows.  
         \n'''))
 
         DeathScenario().enter_scene()
