@@ -25,6 +25,7 @@ class Engine(object):
     def __init__(self, scene_map):
         self.scene_map = scene_map
 
+    # Starts the game with the opening scene in the Forest scene
     def play(self):
         scene = self.scene_map.opening_scene()
         end_game = self.scene_map.next_scene('win')
@@ -37,23 +38,26 @@ class Engine(object):
 # Changing scenes
 class Scene(object):
 
+    # Will be overridden in different scenes
     def enter_scene(self):
         print("Used for other scenes.")
         exit(1)
 
 
-# Win scenarios
+# Caleb will be transported to a new scene
 class WinScenario(Scene):
     
+    # Enters the village scene after defeating the enemy 
     def enter_scene(self):
         print("That was something! Congratulations!\n")
         next_map = GameMap(self)
         next_map.next_scene('village').enter_scene()
         exit(0)
     
-
+# Caleb will be moved to the death scene
 class DeathScenario(Scene):
     
+    # Anounces the player their death
     def enter_scene(self):
         print("That was a horrible death. Didn't know you were this bad!\n")
         exit(1)
@@ -68,12 +72,14 @@ class Powers(object):
             'wheat': 3000,
         }
 
+    # All players' properties and their initial values are defined
     healths = {'caleb': 1000, 'gethara': 1000}
     caleb_money = {'current_money': 500}
     weapons = {'sickle': 0, 'poisoned_leaves': 0, 'hard_stones': 0}
     heko_freddy_energy = {'heko': 250, 'freddy': 350}
     enemy_weapons = ['magic_punch', 'air_kick', 'poisoned_blow']
     
+    # Uses random weapns to beat the oponent
     def enemy_attack(self, weapon):
         if Powers.healths['caleb'] < 90:
             Powers.healths['caleb'] = 0
@@ -90,12 +96,12 @@ class Powers(object):
 
         print(dedent(f"\nGethara attacked using {weapon}!\n"))
 
-
+    # Chooses enemy's attack weapon randomly
     def enemy_random_attack(self):
         weapon = random.choice(Powers.enemy_weapons)
         return weapon
     
-
+    # Shows the amount of health or resources left, in a progress bar
     def progress_bar(self, val, label, max_size):
         bar_size = 20
         j = val / max_size
@@ -103,7 +109,7 @@ class Powers(object):
         bar = bar + '-' * int(bar_size * (1 - j))
         print(f"{label.ljust(10)} | [{bar:{bar_size}s}] {int(100 * j)}%")
 
-
+    # Uses the progress bar function to demonstrate properties and health
     def show_status(self):
         print(dedent('Properties:\n'))     
         self.progress_bar(Powers.caleb_properties['milk'], 'Milk', 2500)
@@ -139,7 +145,7 @@ class Powers(object):
         else:
             self.progress_bar(Powers.heko_freddy_energy['freddy'], 'Freddy', 350)
 
-    
+    # Sells properties and increments the amount of money
     def sell(self):
         print(dedent('So you want to get some money, cool!\n'))
 
@@ -158,8 +164,7 @@ class Powers(object):
         elif to_sell == "2" and Powers.caleb_properties['butter'] >= 300:
             Powers.caleb_properties['butter'] -= 300
             Powers.caleb_money['current_money'] += 300
-
-        
+     
         elif to_sell == "3" and Powers.caleb_properties['wheat'] >= 200:
             Powers.caleb_properties['wheat'] -= 200
             Powers.caleb_money['current_money'] += 200
@@ -171,7 +176,7 @@ class Powers(object):
             print(dedent('No such properties were found. Try again.\n'))
             self.sell()
 
-
+    # Gives options on buying weapons using money from sold properties
     def buy(self):
         print('So you want to level up your power against Gethara!\n')
 
@@ -191,7 +196,6 @@ class Powers(object):
             Powers.caleb_money['current_money'] -= 1000
             Powers.weapons['poisoned_leaves'] += 200
 
-
         elif to_buy == "3" and Powers.caleb_money['current_money'] >= 1200:
             Powers.caleb_money['current_money'] -= 1200
             Powers.weapons['hard_stones'] += 300
@@ -203,7 +207,7 @@ class Powers(object):
             print(dedent("Not enough money to buy...\n"))
             self.buy()
 
-
+    # Uses the weapons bought, causes the reduction in oponent's health 
     def attack(self, gethara_weapon):
 
         if Powers.healths['gethara'] == 0:
@@ -236,7 +240,6 @@ class Powers(object):
             else:
                 Powers.healths['gethara'] = 0
             
-
         elif weapon_to_use == "2" and Powers.weapons['poisoned_leaves'] >= 200:
             Powers.weapons['poisoned_leaves'] -= 200
             
@@ -246,7 +249,6 @@ class Powers(object):
             else:
                 Powers.healths['gethara'] = 0
             
-
         elif weapon_to_use == "3" and Powers.weapons['hard_stones'] >= 300:
             Powers.weapons['hard_stones'] -= 300
             
@@ -339,7 +341,6 @@ class Forest(Scene):
                 '''))
                 choice = input('>>> ')
                 
-
                 if choice == "1":
                     char_power.sell()
                 
@@ -396,7 +397,7 @@ class Tree(Scene):
         DeathScenario().enter_scene()
 
 
-# Cliff scene to fall off
+# Cliff scene to fall off the edge
 class Cliff(Scene):
 
     def enter_scene(self):
@@ -414,7 +415,7 @@ class Cliff(Scene):
         DeathScenario().enter_scene()
 
 
-# Village scene
+# Village scene to rebuild
 class Village(Scene):
     
     def enter_scene(self):
@@ -428,7 +429,7 @@ class Village(Scene):
         \n'''))
 
 
-# Define scenes
+# Define scenes using game map
 class GameMap(object):
 
     game_scenes = {'forest': Forest(), 'village': Village(), 'win': WinScenario(), 'death': DeathScenario()}
@@ -436,10 +437,12 @@ class GameMap(object):
     def __init__(self, start_scene):
         self.start_scene = start_scene
 
+    # To move the game play to the next scene
     def next_scene(self, scene_name):
         scene = GameMap.game_scenes.get(scene_name)
         return scene
-
+    
+    # To start the game in the defined scene
     def opening_scene(self):
         return self.next_scene(self.start_scene)
 
