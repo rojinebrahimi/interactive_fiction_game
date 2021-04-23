@@ -34,7 +34,6 @@ class Engine(object):
             scene = self.scene_map.next_scene('forest').enter_scene()
             
 
-
 # Changing scenes
 class Scene(object):
 
@@ -53,6 +52,7 @@ class WinScenario(Scene):
         next_map = GameMap(self)
         next_map.next_scene('village').enter_scene()
         exit(0)
+   
     
 # Caleb will be moved to the death scene
 class DeathScenario(Scene):
